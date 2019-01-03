@@ -7,7 +7,9 @@ customElements.define('otaku-star-rating', class extends HTMLElement {
     this.color = 'red'
     this.stars = []
     this._handleMouseMove.bind(this)
+    this._handleMouseLeave.bind(this)
     this.addEventListener('mousemove', this._handleMouseMove)
+    this.addEventListener('mouseleave', this._handleMouseLeave)
     this.root = this.attachShadow({ mode: 'open' })
     this.main = document.createElement('div')
     this.main.id = 'main'
@@ -53,11 +55,20 @@ customElements.define('otaku-star-rating', class extends HTMLElement {
       this.main.appendChild(star)
       this.stars.push(star)
     }
+    this._highlightStars(this.value)
+  }
+
+  _highlightStars (value) {
+    this.stars.forEach((star, i) => star.classList.toggle('full', i < value))
   }
 
   _handleMouseMove (e) {
     const clientBox = this.getBoundingClientRect()
     const value = ~~((e.pageX - clientBox.left) / clientBox.width * this.max)
-    this.stars.forEach((star, i) => star.classList.toggle('full', i < value + 1))
+    this._highlightStars(value + 1)
+  }
+
+  _handleMouseLeave () {
+    this._highlightStars(this.value)
   }
 })
