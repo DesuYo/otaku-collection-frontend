@@ -60,7 +60,7 @@ customElements.define('otaku-star-rating', class extends HTMLElement {
       this.main.appendChild(star)
       this.stars.push(star)
     }
-    this._highlightStars(this.value)
+    this._highlightStars(value)
   }
 
   _highlightStars (value) {
@@ -69,8 +69,8 @@ customElements.define('otaku-star-rating', class extends HTMLElement {
 
   _handleMouseMove (e) {
     const clientBox = this.getBoundingClientRect()
-    this.vote = ~~((e.pageX - clientBox.left) / clientBox.width * this.max) + 1
-    this._highlightStars(this.vote)
+    this.mark = ~~((e.pageX - clientBox.left) / clientBox.width * this.max) + 1
+    this._highlightStars(this.mark)
   }
 
   _handleMouseLeave () {
@@ -79,7 +79,7 @@ customElements.define('otaku-star-rating', class extends HTMLElement {
 
   _handleClick () {
     const event = new Event('submit')
-    event.mark = this.vote
+    event.mark = this.mark
     this.dispatchEvent(event)
   }
 })
