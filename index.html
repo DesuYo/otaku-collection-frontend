@@ -11,6 +11,10 @@
   <otaku-star-rating 
     size = '100'
     max = '7'
+    onsubmit = 'handleVote(event)'
   />
 </body>
+<script>
+  const handleVote = e => console.log(`You have voted with ${e.mark}`)
+</script>
 </html>
