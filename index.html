@@ -4,41 +4,119 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="style.css">
-  <title>Document</title>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <link rel="stylesheet" href="css/fonts.css">
+  <link rel="stylesheet" href="css/h.css">
+  <link rel="stylesheet" href="css/controls.css">
+  <link rel="stylesheet" href="css/test.css">
   <script src="components/StarRating.js"></script>
-  <script src="components/Input.js"></script>
+  <title>Document</title>
 </head>
 <body>
-  <div id="grid">
-    <div id="logo" class="block">Logo</div>
-    <nav id="toolbar" class="block level-1"><span>Toolbar</span></nav>
-    <aside id="search-filter" class="block level-2 outline"><span>Search filter</span></aside>
-    <aside id="login-form" class="block level-2 outline">Login form / profile info</aside>
-    <aside id="news" class="block level-2 outline">News block</aside>
-    <aside id="ads" class="block level-2 outline">Ads block</aside>
-    <main class="block level-2 outline">
-      <nav id="navbar">Navbar</nav>
-      <div id="search-text" class="block level-3">Text search</div>
-      <div class="block level-3">Anime 1</div>
-      <div class="block level-3">Anime 2</div>
-      <div class="block level-3">Anime 3</div>
-      <div class="block level-3">Anime 4</div>
-      <div class="block level-3">Anime 5</div>
-      <div class="block level-3">Anime 6</div>
+
+    <section class="top">
+      <div class="logo">
+        <a href="#">Logo</a>
+      </div>
+      <nav>
+        <a href="#">Anime</a>
+        <a href="#">News</a>
+        <a href="#">Community</a>
+        <a href="#">Become premium</a>
+      </nav>
+      <div class="social-networks">
+        <a href="#" class="social-networks">Facebook, etc</a>
+      </div>
+    </section>
+
+    <section class="new-anime container">
+      <h2>New anime</h2>
+      <div class="slider">
+        <div>
+          <img src="images/another.jpg" alt="Another">       
+        </div>
+        <div>
+          <img src="images/another.jpg" alt="Another">
+        </div>
+        <div>
+          <img src="images/another.jpg" alt="Another">
+        </div>
+        <div>
+          <img src="images/another.jpg" alt="Another">
+        </div>
+        <div>
+          <img src="images/another.jpg" alt="Another">
+        </div>
+        <div>
+          <img src="images/another.jpg" alt="Another">
+        </div>
+        <img src="images/back.png" alt="Back" class="back">
+        <img src="images/forward.png" alt="Forward" class="forward">
+      </div>
+      <div class="search-box">
+        <input type="search" placeholder="Type or die">
+      </div>
+    </section>
+
+    <main>
+      <aside>
+        <h3 id="login">Login / Signup</h3>
+        <div class="avatar">
+            <img src="images/ava.gif" alt="Ava">
+        </div>
+        <form action="">
+          <div class="email-box">
+            <input type="email" placeholder="Email...">
+          </div>
+          <div class="password-box">
+            <input type="password" placeholder="Password...">
+          </div>
+          <button type="submit">Login</button>
+        </form>
+        <h3>News</h3>
+      </aside>
+      
+      <section class="main">
+        <h3>Anime list</h3>
+        <div class="anime-list">
+          <div>
+            <img src="images/death_note.jpg" alt="death_note">
+            <h4>Death note</h4>
+            <otaku-star-rating size="30" color="purple"></otaku-star-rating>
+          </div>
+          <div>
+            <img src="images/death_note.jpg" alt="death_note">
+            <h4>Death note</h4>
+            <otaku-star-rating size="30" color="purple"></otaku-star-rating>
+          </div>
+          <div>
+            <img src="images/death_note.jpg" alt="death_note">
+            <h4>Death note</h4>
+            <otaku-star-rating size="30" color="purple"></otaku-star-rating>
+          </div>
+          <div>
+            <img src="images/death_note.jpg" alt="death_note">
+            <h4>Death note</h4>
+            <otaku-star-rating size="30" color="purple"></otaku-star-rating>
+          </div>
+          <div>
+            <img src="images/death_note.jpg" alt="death_note">
+            <h4>Death note</h4>
+            <otaku-star-rating size="30" color="purple"></otaku-star-rating>
+          </div>
+        </div>
+      </section>
+      
+      <aside>
+        <h3>Filter</h3>
+        <div class="select-box-title" id="genre">Choose genre</div>
+        <ul class="select-box-list" id="genre"></ul>
+        <div class="select-box-title" id="status">Choose status</div>
+        <ul class="select-box-list" id="status"></ul>
+        <h3>Ads</h3>
+      </aside>
     </main>
-    <footer class="block level-1">Footer</footer>
-    <div id="new-titles" class="block">
-      <div class="block level-2">Title 1</div>
-      <div class="block level-2">Title 2</div>
-      <div class="block level-2">Title 3</div>
-      <div class="block level-2">Title 4</div>
-      <div class="block level-2">Title 5</div>
-      <div class="block level-2">Title 6</div>
-    </div>
-  </div>
+    <script src="js/MultiSelectBox.js"></script>
 </body>
-<script>
-  const handleVote = e => console.log(`You have voted with ${e.mark}`)
-</script>
+
 </html>

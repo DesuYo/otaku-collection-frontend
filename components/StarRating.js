@@ -71,6 +71,7 @@ customElements.define('otaku-star-rating', class extends HTMLElement {
       this.stars.push(shape)
     }
     this._highlightStars(value)
+
   }
 
   _highlightStars (value) {
