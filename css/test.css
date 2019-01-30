@@ -18,6 +18,10 @@ body {
 section.top {
   height: 50px;
   display: flex;
+  position: fixed;
+  top: 0;
+  z-index: 100;
+  width: 100vw;
   background-color: rgb(38, 38, 38);
   font: bold 14px / 50px Montserrat, sans-serif;
 }
@@ -44,7 +48,7 @@ section.top a {
 section.new-anime {
   position: relative;
   width: calc(78vw + 20px);
-  margin-top: calc(27vw - 40px);
+  margin-top: calc(30vw - 40px);
 }
 
 /*section.new-anime > h2::after {
@@ -71,16 +75,22 @@ div.slider > div {
   position: relative;
   flex: 1 0 170px;
   margin-left: 18px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+div.slider > div:after {
+  content: '';
+  position: absolute;
+  top: 0; 
+  right: 0;
+  bottom: 0; 
+  left: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.1));
 }
 
 div.slider > div:first-child {
   margin-left: 0;
-}
-
-div.slider > div > img {
-  display: block;
-  width: 100%;
-  opacity: 0.8;
 }
 
 div.slider img.back, img.forward {
@@ -135,11 +145,6 @@ div.anime-list div {
   text-align: center;
 }
 
-div.anime-list img {
-  display: block;
-  width: 100%;
-}
-
 div.avatar {
   margin: 10px auto 0 auto;
   width: 160px;
@@ -151,3 +156,5 @@ div.avatar {
 div.avatar > img {
   width: 100%;
 }
+
+

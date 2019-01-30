@@ -15,11 +15,23 @@ h2 {
 
 h3 {
   display: block;
+  position: relative;
   margin: 30px -10px 0 -10px;
   padding-left: 8px;
   font: bold 18px / 30px Montserrat, sans-serif;
   color: rgb(60, 60, 60);
   border-bottom: 1px solid rgb(175, 173, 173);
+}
+
+h3:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50%;
+  max-width: 200px;
+  height: 3px;
+  background-color: rgb(84, 64, 189);
 }
 
 h4 {
