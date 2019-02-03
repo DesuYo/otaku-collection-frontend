@@ -1,5 +1,9 @@
 const selectBoxTitles = document.querySelectorAll('.select-box-title')
 
+const toggleList = (selectBoxTitle, selectBoxList) => {
+
+} 
+
 selectBoxTitles.forEach(el => {
   const selectBoxList = document.querySelector(`ul#${el.id}`)
   let options = ['Hentai', 'Seinen', 'Echi'] // Use API call instead
@@ -24,6 +28,7 @@ selectBoxTitles.forEach(el => {
     selectBoxList.classList.toggle('open')
   })
 })
+
 
 
 

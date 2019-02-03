@@ -4,125 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-  <link rel="stylesheet" href="css/fonts.css">
-  <link rel="stylesheet" href="css/h.css">
-  <link rel="stylesheet" href="css/controls.css">
-  <link rel="stylesheet" href="css/img.css">
-  <link rel="stylesheet" href="css/test.css">
-  <script src="components/StarRating.js"></script>
   <title>Document</title>
 </head>
 <body>
-
-    <section class="top">
-      <div class="logo">
-        <a href="#">Logo</a>
-      </div>
-      <nav>
-        <a href="#">Anime</a>
-        <a href="#">News</a>
-        <a href="#">Community</a>
-        <a href="#">Become premium</a>
-      </nav>
-      <div class="social-networks">
-        <a href="#" class="social-networks">
-          <img src="images/youtube.png" alt="Youtube" class="icon">
-        </a>
-        <a href="#">
-          <img src="images/fb.png" alt="Facebook" class="icon">
-        </a>
-      </div>
-    </section>
-
-    <section class="new-anime container">
-      <h2>New anime</h2>
-      <div class="slider">
-        <div>
-          <img src="images/another.jpg" alt="Another" class="block">       
-        </div>
-        <div>
-          <img src="images/another.jpg" alt="Another" class="block">
-        </div>
-        <div>
-          <img src="images/another.jpg" alt="Another" class="block">
-        </div>
-        <div>
-          <img src="images/another.jpg" alt="Another" class="block">
-        </div>
-        <div>
-          <img src="images/another.jpg" alt="Another" class="block">
-        </div>
-        <div>
-          <img src="images/another.jpg" alt="Another" class="block">
-        </div>
-        <img src="images/back.png" alt="Back" class="back">
-        <img src="images/forward.png" alt="Forward" class="forward">
-      </div>
-      <div class="search-box">
-        <input type="search" placeholder="Type or die">
-      </div>
-    </section>
-
-    <main>
-      <aside>
-        <h3 id="login">Login / Signup</h3>
-        <div class="avatar">
-            <img src="images/ava.gif" alt="Ava">
-        </div>
-        <form action="">
-          <div class="email-box">
-            <input type="email" placeholder="Email...">
-          </div>
-          <div class="password-box">
-            <input type="password" placeholder="Password...">
-          </div>
-          <button type="submit">Login</button>
-        </form>
-        <h3>News</h3>
-      </aside>
-      
-      <section class="main">
-        <h3>Anime list</h3>
-        <div class="anime-list">
-          <div>
-            <img src="images/death_note.jpg" alt="death_note" class="block">
-            <h4>Death note</h4>
-            <otaku-star-rating size="30" color="purple"></otaku-star-rating>
-          </div>
-          <div>
-            <img src="images/death_note.jpg" alt="death_note" class="block">
-            <h4>Death note</h4>
-            <otaku-star-rating size="30" color="purple"></otaku-star-rating>
-          </div>
-          <div>
-            <img src="images/death_note.jpg" alt="death_note" class="block">
-            <h4>Death note</h4>
-            <otaku-star-rating size="30" color="purple"></otaku-star-rating>
-          </div>
-          <div>
-            <img src="images/death_note.jpg" alt="death_note" class="block">
-            <h4>Death note</h4>
-            <otaku-star-rating size="30" color="purple"></otaku-star-rating>
-          </div>
-          <div>
-            <img src="images/death_note.jpg" alt="death_note" class="block">
-            <h4>Death note</h4>
-            <otaku-star-rating size="30" color="purple"></otaku-star-rating>
-          </div>
-        </div>
-      </section>
-      
-      <aside>
-        <h3>Filter</h3>
-        <div class="select-box-title" id="genre">Choose genre</div>
-        <ul class="select-box-list" id="genre"></ul>
-        <div class="select-box-title" id="status">Choose status</div>
-        <ul class="select-box-list" id="status"></ul>
-        <h3>Ads</h3>
-      </aside>
-    </main>
-    <script src="js/MultiSelectBox.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      outline: none;
+      transition: all 0.5s ease;
+    }
+    body {
+      padding: 0 10px;
+    }
+  </style>
+  <div id="app"></div>
 </body>
-
 </html>
