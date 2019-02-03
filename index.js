@@ -1,7 +1,7 @@
 import React from 'react'
 import reactDOM from 'react-dom'
 
-import AwesomeMultiSelectBox from './components/MultiSelectBox'
+import { AwesomeMultiSelectBox } from './components/MultiSelectBox'
 import { AwesomeSearchInput } from './components/SearchInput'
 
 

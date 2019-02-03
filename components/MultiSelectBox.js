@@ -75,7 +75,7 @@ const SelectBoxList = styled.ul`
   }
 `
 
-export default class extends React.Component {
+export class AwesomeMultiSelectBox extends React.Component {
   constructor (props) {
     super(props)
     const { id, title, list = [] } = this.props
