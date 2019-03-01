@@ -1,22 +1,14 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const InputContainer = styled.div`
-  position: relative;
-  margin-top: 15px;
-  padding: 0 10px 0 42px;
+import { InputContainer } from './Input'
+
+const SearchInputContainer = styled(InputContainer)`
   border: 1px solid rgb(134, 50, 170);
   border-radius: 4px;
 
   &:before {
-    content: '';
-    background: url(../images/search.jpg) 0 / cover no-repeat;
-    display: block;
-    position: absolute;
-    left: 12px;
-    top: 4px;
-    width: 20px;
-    height: 20px;
+    background-image: url(../images/search.jpg)
   }
 
   &.focused {
@@ -24,10 +16,7 @@ const InputContainer = styled.div`
   }
 
   input {
-    appearance: none;
-    display: block;
-    width: 100%;
-    font: 14px / 28px Montserrat, sans-serif;
+    font: 14px / 40px Montserrat, sans-serif;
   }
 `
 
@@ -35,7 +24,6 @@ export class AwesomeSearchInput extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      timer: null,
       isFocused: false
     }
     this.timer = null
@@ -44,7 +32,7 @@ export class AwesomeSearchInput extends React.Component {
   render () {
     const { isFocused } = this.state
     return (
-      <InputContainer
+      <SearchInputContainer
         className={ isFocused ? 'focused' : 'not-focused' }
       >
         <input 
@@ -53,7 +41,7 @@ export class AwesomeSearchInput extends React.Component {
           onBlur={ () => this.setState({ isFocused: false }) }
           placeholder="Test it, bratok"
         />
-      </InputContainer>
+      </SearchInputContainer>
     )
   }
 

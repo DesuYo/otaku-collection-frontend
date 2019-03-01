@@ -1,38 +1,24 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const SelectBoxTitle = styled.div`
-  position: relative;
-  margin-top: 15px;
-  padding: 0 12px;
+import { InputContainer } from './Input'
+
+const SelectBoxTitle = styled(InputContainer)`
   font: bold 14px / 30px Montserrat, sans-serif;
   color: rgb(255, 255, 255);
   text-align: right;
   text-transform: uppercase;
-  /*background-color: rgb(114, 47, 172);*/
   background: linear-gradient(to right, rgb(134, 50, 170), rgb(78, 42, 166));
-  border-radius: 4px;
   cursor: pointer;
 
   &:before {
-    content: '';
-    /*display: inline-block;*/
-    position: absolute;
-    top: 6px; /* change to 4px when 45deg*/
-    left: 12px;
-    width: 3px;
-    height: 3px;
-    border: solid rgb(255, 255, 255);
-    border-width: 0 3px 3px 0;
-    padding: 3px;
-    border-radius: 2px;
-    transform: rotate(45deg);
-    transition: all 0.5s ease;
+    background-image: url(../images/arrow_white.png);
+    transform: rotate(90deg);
+    transition: transform 0.5s ease;
   }
 
   &.opened:before {
-    top: 11px;
-    transform: rotate(225deg);
+    transform: rotate(270deg);
   }
 `
 
@@ -78,9 +64,9 @@ const SelectBoxList = styled.ul`
 export class AwesomeMultiSelectBox extends React.Component {
   constructor (props) {
     super(props)
-    const { id, title, list = [] } = this.props
+    const { title, list = [] } = this.props
     this.state = { 
-      id, title, list, 
+      title, list, 
       isOpen: false,
       selectedOptions: []
     }
