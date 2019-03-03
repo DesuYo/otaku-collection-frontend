@@ -100,16 +100,15 @@ const StyledButton = styled.button`
   margin-top: 15px;
   padding: 0 10px;
   width: 100%;
-  background: linear-gradient(to left, rgb(134, 50, 170), rgb(78, 42, 166));
+  background-color: transparent;
+  /*background: linear-gradient(to left, rgb(134, 50, 170), rgb(78, 42, 166));*/
+  border: 1px solid rgb(134, 50, 170);
   border-radius: 4px;
   font: bold 14px / 30px "Myriad Pro", sans-serif;
-  color: rgb(255, 255, 255);
   text-transform: uppercase;
-  cursor: pointer;
-  transition: background 0.5s;
 
   &:hover {
-    background: linear-gradient(to right, rgb(134, 50, 170), rgb(78, 42, 166));
+    /*background: linear-gradient(to right, rgb(134, 50, 170), rgb(78, 42, 166));*/
   }
 `
 
@@ -120,7 +119,7 @@ export class AwesomeInputForm extends React.Component {
       values: {},
       checked: {},
       focused: null,
-      completed: false
+      completed: 0
     }
   }
   
@@ -146,9 +145,19 @@ export class AwesomeInputForm extends React.Component {
         >
           <input 
             type={ type } 
-            onChange={ ({ target: { value }}) => 
-              this.setState(({ values }) => 
-                ({ values: { ...values, [name]: value } })) }
+            onChange={ ({ target: { value }}) => {
+              this.setState(({ values, checked }) => 
+                ({ 
+                  values: { ...values, [name]: value },
+                  checked: { ...checked, [name]: new RegExp(regex).test(value) }
+                }))
+              this.setState(({ checked }) => {
+                const completed = Object
+                  .keys(checked)
+                  .filter(prop => checked[prop] === true)
+                return { completed: Math.round(completed.length / fields.length * 100) + '%' }
+              })
+            }}
             onFocus={ () => 
               this.setState({ focused: name }) }
             onBlur={ () => {
@@ -157,35 +166,40 @@ export class AwesomeInputForm extends React.Component {
                   checked: { ...checked, [name]: new RegExp(regex).test(value) || errorHint || '' }, 
                   focused: null
                 }))
-              this.setState(({ checked }) => 
-                ({ completed: Object
-                    .keys(checked)
-                    .filter(prop => checked[prop] === true)
-                    .length === fields.length 
-                }))
-            } }
+            }}
           />
           <span>{ `${name}${typeof checked[name] === 'string' ? `. ${errorHint || 'Invalid value'}` : ''}` }</span>
         </InputContainer>
       )
     })
+
+    const ProgressButton = styled(StyledButton)`
+      color: ${ !completed || completed === '0%' ? 'rgb(234, 50, 170)' : 'rgb(255, 255, 255)' };
+      background: linear-gradient(to right, rgb(134, 50, 170), rgb(184, 50, 170) ${completed}, transparent ${completed});
+      animation: blink ${!completed || completed === '0%' ? '0s' : '1s'} steps(20, start) 0s infinite alternate;
+      cursor: ${ completed === '100%' ? 'pointer' : 'not-allowed' };
+      @keyframes blink {
+        from { background-color: rgb(255, 255, 255); }
+        to { background-color: rgb(255, 220, 255); }
+      }
+    `
    
     return (
       <form>
         { fields }
-        <StyledButton 
+        <ProgressButton
           type='button'
-          disabled={ !completed }
-          className={ completed ? 'valid' : 'invalid' }
+          disabled={ !(completed === '100%') }
           onClick={ this.handleSubmit }
         >
           Submit
-        </StyledButton>
+        </ProgressButton>
       </form>
     )
   }
 
   handleSubmit = () => {
+    this.setState()
     const { url, query } = this.props
 
     fetch(url, {
