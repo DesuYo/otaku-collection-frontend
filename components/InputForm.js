@@ -189,7 +189,7 @@ export class AwesomeInputForm extends React.Component {
         { fields }
         <ProgressButton
           type='button'
-          disabled={ !(completed === '100%') }
+          disabled={ completed !== '100%' }
           onClick={ this.handleSubmit }
         >
           Submit
