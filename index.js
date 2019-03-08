@@ -29,7 +29,7 @@ reactDOM.render(
       query={ query } 
       onResponse={ e => console.log(e) }
     >
-      <input name='field1' type='email' regex='^olehdesu@gmail.com$' errorHint='Should be valid email' />
+      <input name='field1' type='email' regex='^olehdesu@gmail.com$' error-hint='Should be valid email' />
       <button>Wont be displayed</button>
       <input name='field2' type='password' regex='^.{8,}$' />
       <input name='field3' type='password' regex='^.{8,}$' />
