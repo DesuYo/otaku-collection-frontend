@@ -102,28 +102,35 @@ const StyledButton = styled.button`
   margin-top: 15px;
   width: 100%;
   font: bold 14px / 30px "Myriad Pro", sans-serif;
+  color: rgb(234, 50, 170);
   text-transform: uppercase;
   background-color: transparent;
   border: 1px solid rgb(134, 50, 170);
   border-radius: 4px;
+  cursor: not-allowed;
 
-  span {
-    position: absolute;
-    left: 0; right: 100%;
-    top: 0; bottom: 0;
-    background: linear-gradient(to left, rgb(134, 50, 170), rgb(78, 42, 166)); 
-    transition: right 1s;
-  }
-
-  /*&:after {
+  &:after {
     content: '';
     position: absolute;
     display: block;
-    left: 0; right: 100%;
-    top: 0; bottom: 0;
-    background: linear-gradient(to left, rgb(134, 50, 170), rgb(78, 42, 166));
-    transition: right 1s;
-  }*/
+    left: 50%; right: 50%;
+    top: -1px; bottom: -1px;
+    border: 0 solid rgb(134, 50, 170);
+    border-radius: 4px;
+    transition: left 1s, right 1s;
+    z-index: 100;
+  }
+
+  &.form-completed {
+    color: rgb(134, 50, 170);
+    cursor: pointer;
+  }
+
+  &.form-completed:after {
+    left: -1px; right: -1px;
+    border-width: 2px;
+    transition: left 1s, right 1s;
+  }
 
   &:hover {
     /*background: linear-gradient(to right, rgb(134, 50, 170), rgb(78, 42, 166));*/
@@ -137,7 +144,7 @@ export class AwesomeInputForm extends React.Component {
       values: {},
       checked: {},
       focused: null,
-      completed: 0
+      completed: false
     }
   }
 
@@ -153,7 +160,7 @@ export class AwesomeInputForm extends React.Component {
   }
 
   genInputHint = ({ props: { name } }) => {
-    const { checked } = this.state
+    const { checked, completed } = this.state
     return `
       ${name}${typeof checked[name] === 'string' 
         ? `. ${checked[name] || 'Invalid value'}` 
@@ -170,7 +177,7 @@ export class AwesomeInputForm extends React.Component {
       completed: Math.round(Object
         .keys(checked)
         .filter(prop => checked[prop] === true)
-        .length / this.fields.length * 100) + '%'
+        .length === this.fields.length)
     }))
   }
 
@@ -190,7 +197,7 @@ export class AwesomeInputForm extends React.Component {
     
   render () {
     const { completed } = this.state
-  
+    
     this.fields = React.Children
       .toArray(this.props.children)
       .filter(node => node.type === 'input')
@@ -207,36 +214,20 @@ export class AwesomeInputForm extends React.Component {
           <span>{ this.genInputHint(node) }</span>
         </InputContainer>
       ))
-
-    const ProgressButton = styled(StyledButton)`
-      color: ${ !completed || completed === '0%' ? 'rgb(234, 50, 170)' : 'rgb(255, 255, 255)' };
-      animation: blink ${!completed || completed === '0%' ? '0s' : '1s'} steps(20, start) 0s infinite alternate;
-      cursor: ${ completed === '100%' ? 'pointer' : 'not-allowed' };
-      @keyframes blink {
-        from { background-color: rgb(255, 255, 255); }
-        to { background-color: rgb(255, 220, 255); }
-      }
-    `
     
     return (
       <form>
         { this.fields }
-        <ProgressButton
-          ref={ el => this.progressButton = el }
+        <StyledButton
           type='button'
-          className='progress'
-          disabled={ completed !== '100%' }
+          className={ completed ? 'form-completed' : 'form-in-progress' }
+          disabled={ !completed }
           onClick={ this.handleSubmit }
         >
           Submit
-          <span></span>
-        </ProgressButton>
+        </StyledButton>
       </form>
     )
-  }
-
-  componentDidUpdate () {
-    this.progressButton.querySelector('span').style.right = `calc(100% - ${this.state.completed}`
   }
 
   handleSubmit = () => {
