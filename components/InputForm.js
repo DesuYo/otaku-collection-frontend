@@ -199,7 +199,6 @@ export class AwesomeInputForm extends React.Component {
   }
 
   handleSubmit = () => {
-    this.setState()
     const { url, query } = this.props
 
     fetch(url, {
