@@ -97,15 +97,40 @@ export const InputContainer = styled.div`
 `
 
 const StyledButton = styled.button`
+  position: relative;
+  display: block;
   margin-top: 15px;
-  padding: 0 10px;
   width: 100%;
+  font: bold 14px / 30px "Myriad Pro", sans-serif;
+  color: rgb(234, 50, 170);
+  text-transform: uppercase;
   background-color: transparent;
-  /*background: linear-gradient(to left, rgb(134, 50, 170), rgb(78, 42, 166));*/
   border: 1px solid rgb(134, 50, 170);
   border-radius: 4px;
-  font: bold 14px / 30px "Myriad Pro", sans-serif;
-  text-transform: uppercase;
+  cursor: not-allowed;
+
+  &:after {
+    content: '';
+    position: absolute;
+    display: block;
+    left: 50%; right: 50%;
+    top: -1px; bottom: -1px;
+    border: 0 solid rgb(134, 50, 170);
+    border-radius: 4px;
+    transition: left 1s, right 1s;
+    z-index: 100;
+  }
+
+  &.form-completed {
+    color: rgb(134, 50, 170);
+    cursor: pointer;
+  }
+
+  &.form-completed:after {
+    left: -1px; right: -1px;
+    border-width: 2px;
+    transition: left 1s, right 1s;
+  }
 
   &:hover {
     /*background: linear-gradient(to right, rgb(134, 50, 170), rgb(78, 42, 166));*/
@@ -119,81 +144,88 @@ export class AwesomeInputForm extends React.Component {
       values: {},
       checked: {},
       focused: null,
-      completed: 0
+      completed: false
     }
   }
-  
-  render () {
-    const { focused, checked, completed } = this.state
+
+  genInputClasses = ({ props: { name, type } }) => {
+    const { focused, checked } = this.state
+    return `
+      ${type} 
+      ${focused === name ? 'focused' : 'no-focused'} 
+      ${checked[name] === true
+        ? 'valid' 
+        : (typeof checked[name] === 'string'  ? 'invalid' : 'no-checked')}
+    `
+  }
+
+  genInputHint = ({ props: { name } }) => {
+    const { checked, completed } = this.state
+    return `
+      ${name}${typeof checked[name] === 'string' 
+        ? `. ${checked[name] || 'Invalid value'}` 
+        : ''}
+    `
+  }
+
+  handleChange = ({ target: el, target: { value } }) => {
+    this.setState(({ values, checked }) => ({
+      values: { ...values, [el.getAttribute('name')]: value },
+      checked: { ...checked, [el.getAttribute('name')]: new RegExp(el.getAttribute('regex')).test(value) }
+    }))
+    this.setState(({ checked }) => ({
+      completed: Math.round(Object
+        .keys(checked)
+        .filter(prop => checked[prop] === true)
+        .length === this.fields.length)
+    }))
+  }
+
+  handleBlur = ({ target: el, target: { value }, relatedTarget }) => {
+    if (relatedTarget && relatedTarget.getAttribute('type') === 'button' && this.state.completed === '100%')
+      this.handleSubmit()
+    this.setState(({ checked }) => ({ 
+      checked: { ...checked, [el.getAttribute('name')]: 
+        new RegExp(el.getAttribute('regex')).test(value) || el.getAttribute('error-hint') || 'Invalid value' }, 
+      focused: null
+    }))
+  }
+
+  handleFocus = ({ target: el }) => {
+    this.setState({ focused: el.getAttribute('name') })
+  }
     
-    let fields = React.Children
+  render () {
+    const { completed } = this.state
+    
+    this.fields = React.Children
       .toArray(this.props.children)
       .filter(node => node.type === 'input')
-      
-    fields = fields.map((node, i) => {
-      const { name, type, regex, errorHint } = node.props
-
-      return (
-        <InputContainer 
-          key={ i } 
-          className={ `
-            ${type} 
-            ${focused === name ? 'focused' : 'no-focused'} 
-            ${checked[name] === true
-              ? 'valid' 
-              : (typeof checked[name] === 'string'  ? 'invalid' : 'no-checked')}` }
-        >
-          <input 
-            type={ type } 
-            onChange={ ({ target: { value }}) => {
-              this.setState(({ values, checked }) => 
-                ({ 
-                  values: { ...values, [name]: value },
-                  checked: { ...checked, [name]: new RegExp(regex).test(value) }
-                }))
-              this.setState(({ checked }) => {
-                const completed = Object
-                  .keys(checked)
-                  .filter(prop => checked[prop] === true)
-                return { completed: Math.round(completed.length / fields.length * 100) + '%' }
-              })
-            }}
-            onFocus={ () => 
-              this.setState({ focused: name }) }
-            onBlur={ () => {
-              this.setState(({ values: { [name]: value = '' }, checked }) => 
-                ({ 
-                  checked: { ...checked, [name]: new RegExp(regex).test(value) || errorHint || '' }, 
-                  focused: null
-                }))
-            }}
-          />
-          <span>{ `${name}${typeof checked[name] === 'string' ? `. ${errorHint || 'Invalid value'}` : ''}` }</span>
+      .map((node, i) => (
+        <InputContainer key={ i } className={ this.genInputClasses(node) }>
+          { 
+            React.cloneElement(node, {
+              ref: i,
+              onChange: this.handleChange,
+              onFocus: this.handleFocus,
+              onBlur: this.handleBlur
+            })
+          }
+          <span>{ this.genInputHint(node) }</span>
         </InputContainer>
-      )
-    })
-
-    const ProgressButton = styled(StyledButton)`
-      color: ${ !completed || completed === '0%' ? 'rgb(234, 50, 170)' : 'rgb(255, 255, 255)' };
-      background: linear-gradient(to right, rgb(134, 50, 170), rgb(184, 50, 170) ${completed}, transparent ${completed});
-      animation: blink ${!completed || completed === '0%' ? '0s' : '1s'} steps(20, start) 0s infinite alternate;
-      cursor: ${ completed === '100%' ? 'pointer' : 'not-allowed' };
-      @keyframes blink {
-        from { background-color: rgb(255, 255, 255); }
-        to { background-color: rgb(255, 220, 255); }
-      }
-    `
-   
+      ))
+    
     return (
       <form>
-        { fields }
-        <ProgressButton
+        { this.fields }
+        <StyledButton
           type='button'
-          disabled={ completed !== '100%' }
+          className={ completed ? 'form-completed' : 'form-in-progress' }
+          disabled={ !completed }
           onClick={ this.handleSubmit }
         >
           Submit
-        </ProgressButton>
+        </StyledButton>
       </form>
     )
   }
