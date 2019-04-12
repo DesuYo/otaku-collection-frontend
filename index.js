@@ -14,12 +14,15 @@ const query = `
   }
 `
 
+
 reactDOM.render(
   <div>
     <AwesomeMultiSelectBox
       title='Choose genre'
       list={[ 'Hentai', 'Seinen', 'Echi', 'Horror' ]}
-      cb={options => console.log('Options', options)}
+      url='https://polar-tundra-68721.herokuapp.com/graphql' 
+      query={ query } 
+      onResponse={ e => console.log(e) }
     />
     <AwesomeSearchInput 
       cb={text => console.log('Search text', text) }

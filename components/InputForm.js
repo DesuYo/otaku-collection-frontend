@@ -248,10 +248,10 @@ export class AwesomeInputForm extends React.Component {
   }
 }
 
-/*Hello. I looked at myself 2 options:
+/*Hello. I have considered 2 options:
 https://x-house.co.jp/en/sharehouse/adachiku-en-2/sa-xross147/
 https://x-house.co.jp/en/sharehouse/adachiku-en-2/sa-xross149/
-One of them cost 39 000 yen and other 30 000. What difference between them?
-Generally, I'm looking for private apartment near Nippori station. Toilet and shower can be shared but only with small amount of people (3-4 per one unit).
-Required private facilities: bed, fridge, air-con (very important), table, some sort of closet. It seem's like all of them are included in this two rooms which I mentioned above.
-A'm planning to entry Japan in 31th March - 1st April.*/
+One of them costs 39 000 yen and another - 30 000. What is the difference between them?
+Generally, I'm looking for private apartment near Nippori station. Toilet and shower can be shared but only with few people (3-4 per one unit).
+Required private facilities: bed, fridge, air-con (very important), table, some sort of closet. It seems like all of them are included in this two rooms which I mentioned above.
+I'm planning to entry Japan in 31th March - 1st April.*/
