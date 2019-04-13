@@ -18,14 +18,12 @@ export class AwesomeSwitcher extends Component {
 
   render() {
     const children = React.Children.toArray(this.props.children).map(node => {
-      return React.cloneElement(node, {
-        onSwitch: this.handleSwitch
-      })
+      return React.cloneElement(node)
     })
 
     return (
-      <div>
-        {children[this.state.position]}
+      <div onClick={ this.handleSwitch }>
+        { children[this.state.position] }
       </div>
     )
   }
