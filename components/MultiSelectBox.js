@@ -105,14 +105,12 @@ export class AwesomeMultiSelectBox extends React.Component {
       ? selectedOptions.filter(value => value !== innerText)
       : [ ...selectedOptions, innerText ]
     this.setState({ selectedOptions: newSelectedOptions })
-    newSelectedOptions.length
-      ? this.handleFiltering()
-      : ''
+    this.handleFiltering(newSelectedOptions)
   }
 
-  handleFiltering = () => {
+  handleFiltering = options => {
     const { url, query } = this.props
-    
+    options = options.length ? options : this.props.list
     fetch(url, {
       method: 'POST',
       headers: {
@@ -121,7 +119,7 @@ export class AwesomeMultiSelectBox extends React.Component {
       body: JSON.stringify({
         query,
         variables: {
-          field1: 'rofl! and it works.'
+          field1: options.join()
         }
       })
     })
