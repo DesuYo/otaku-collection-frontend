@@ -90,8 +90,19 @@ export class AwesomeMultiSelectBox extends React.Component {
         <SelectBoxList
           className={ isOpen ? 'opened' : 'closed' }
         >{ list }</SelectBoxList>
+        <button type="button" style={{color: 'rgb(234,50,170)', position: 'relative',
+          display: 'block', width: '100%', marginTop: '15px', 
+          font: 'bold 14px / 30px "Myriad Pro",sans-serif'}}
+          onClick={this.handleSwitch}>
+          SWITCH
+        </button>
       </div>
     )
+  }
+
+  handleSwitch = e => {
+    e.preventDefault()
+    this.props.onSwitch(e)
   }
 
   toggleList = () => {
