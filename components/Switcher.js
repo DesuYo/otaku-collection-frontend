@@ -9,11 +9,11 @@ const StyledButton = styled.button`
   color: rgb(134, 50, 170);
   cursor: pointer;
 
-  &:after {
+  .text-container:after {
     content: '';
     display: inline-block;
     position: absolute;
-    left: calc(50% + 75px); right: -25px;
+    left: calc(100% + 5px); right: -25px;
     top: 8px; bottom: 8px;
     background: center / contain no-repeat;
     background-image: url(../images/arrow.png);
@@ -47,7 +47,7 @@ export class AwesomeSwitcher extends Component {
       <div>
         { children[this.state.position] }
         <StyledButton onClick={ this.handleSwitch }>
-          { children[this.state.position].type.name }
+          <span className="text-container">{ children[this.state.position].type.name }</span>
         </StyledButton>
       </div>
     )
