@@ -5,6 +5,7 @@ const StyledButton = styled.button`
   position: relative;
   display: block;
   margin: 0 auto;
+  margin-top: 15px;
   font: bold 14px / 30px "Myriad Pro", sans-serif;
   color: rgb(134, 50, 170);
   cursor: pointer;
@@ -31,12 +32,12 @@ export class AwesomeSwitcher extends Component {
   handleSwitch = () => {
     this.setState(({ position }) => {
       return {
-        position: 1 - position
+        position: position === React.Children.count(this.props.children) - 1
+          ? 0
+          : position + 1
       }
     })
   }
-
-
 
   render() {
     const children = React.Children.toArray(this.props.children).map(node => {

@@ -29,17 +29,17 @@ reactDOM.render(
       <AwesomeSearchInput 
         cb={text => console.log('Search text', text) }
       />
+      <AwesomeInputForm 
+        url='https://polar-tundra-68721.herokuapp.com/graphql' 
+        query={ query } 
+        onResponse={ e => console.log(e) }
+      >
+        <input name='field1' type='email' regex='^olehdesu@gmail.com$' error-hint='Should be valid email' />
+        <button>Wont be displayed</button>
+        <input name='field2' type='password' regex='^.{8,}$' />
+        <input name='field3' type='password' regex='^.{8,}$' />
+      </AwesomeInputForm>
     </AwesomeSwitcher>
-    <AwesomeInputForm 
-      url='https://polar-tundra-68721.herokuapp.com/graphql' 
-      query={ query } 
-      onResponse={ e => console.log(e) }
-    >
-      <input name='field1' type='email' regex='^olehdesu@gmail.com$' error-hint='Should be valid email' />
-      <button>Wont be displayed</button>
-      <input name='field2' type='password' regex='^.{8,}$' />
-      <input name='field3' type='password' regex='^.{8,}$' />
-    </AwesomeInputForm>
   </div>, 
   document.querySelector('#app')
 )
