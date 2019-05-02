@@ -40,15 +40,11 @@ export class AwesomeSwitcher extends Component {
   }
 
   render() {
-    const children = React.Children.toArray(this.props.children).map(node => {
-      return React.cloneElement(node)
-    })
-
     return (
       <div>
-        { children[this.state.position] }
+        { this.props.children[this.state.position] }
         <StyledButton onClick={ this.handleSwitch }>
-          <span className="text-container">{ children[this.state.position].type.name }</span>
+          <span className="text-container">{ this.props.children[this.state.position].type.name }</span>
         </StyledButton>
       </div>
     )

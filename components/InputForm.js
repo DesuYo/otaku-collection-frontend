@@ -248,8 +248,6 @@ export class AwesomeInputForm extends React.Component {
 
   }
 }
-<<<<<<< HEAD
-=======
 
 /*Hello. I have considered 2 options:
 https://x-house.co.jp/en/sharehouse/adachiku-en-2/sa-xross147/
@@ -259,4 +257,3 @@ Generally, I'm looking for private apartment near Nippori station. Toilet and sh
 but only with few people (3-4 per one unit). Required private facilities: bed, fridge, air-con 
 (very important), table, some sort of closet. It seems like all of them are included in this 
 two rooms which I mentioned above. I'm planning to entry Japan in 31th March - 1st April.*/
->>>>>>> f8fa9e54069a3db46273b0bec420a6df092579f0
