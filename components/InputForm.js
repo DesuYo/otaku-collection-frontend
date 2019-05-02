@@ -142,6 +142,7 @@ export class AwesomeInputForm extends React.Component {
     super()
     this.state = {
       values: {},
+      resolved: 0,
       checked: {},
       focused: null,
       completed: false
@@ -169,20 +170,21 @@ export class AwesomeInputForm extends React.Component {
   }
 
   handleChange = ({ target: el, target: { value } }) => {
-    this.setState(({ values, checked }) => ({
-      values: { ...values, [el.getAttribute('name')]: value },
-      checked: { ...checked, [el.getAttribute('name')]: new RegExp(el.getAttribute('regex')).test(value) }
+    const name = el.getAttribute('name')
+    const isValid = new RegExp(el.getAttribute('regex') || '').test(value)
+    
+    this.setState(({ values, checked, resolved }) => ({
+      values: { ...values, [name]: value },
+      resolved: isValid && checked[name] !== true 
+        ? resolved + 1 
+        : (!isValid && checked[name] === true ? resolved - 1 : resolved),
+      checked: { ...checked, [name]: isValid || null }
     }))
-    this.setState(({ checked }) => ({
-      completed: Math.round(Object
-        .keys(checked)
-        .filter(prop => checked[prop] === true)
-        .length === this.fields.length)
-    }))
+    this.setState(({ resolved }) => ({ completed: resolved / this.fields.length === 1 }))
   }
 
   handleBlur = ({ target: el, target: { value }, relatedTarget }) => {
-    if (relatedTarget && relatedTarget.getAttribute('type') === 'button' && this.state.completed === '100%')
+    if (relatedTarget && relatedTarget.getAttribute('type') === 'button' && this.state.completed === true)
       this.handleSubmit()
     this.setState(({ checked }) => ({ 
       checked: { ...checked, [el.getAttribute('name')]: 
@@ -205,7 +207,6 @@ export class AwesomeInputForm extends React.Component {
         <InputContainer key={ i } className={ this.genInputClasses(node) }>
           { 
             React.cloneElement(node, {
-              ref: i,
               onChange: this.handleChange,
               onFocus: this.handleFocus,
               onBlur: this.handleBlur
@@ -247,11 +248,3 @@ export class AwesomeInputForm extends React.Component {
 
   }
 }
-
-/*Hello. I looked at myself 2 options:
-https://x-house.co.jp/en/sharehouse/adachiku-en-2/sa-xross147/
-https://x-house.co.jp/en/sharehouse/adachiku-en-2/sa-xross149/
-One of them cost 39 000 yen and other 30 000. What difference between them?
-Generally, I'm looking for private apartment near Nippori station. Toilet and shower can be shared but only with small amount of people (3-4 per one unit).
-Required private facilities: bed, fridge, air-con (very important), table, some sort of closet. It seem's like all of them are included in this two rooms which I mentioned above.
-A'm planning to entry Japan in 31th March - 1st April.*/
