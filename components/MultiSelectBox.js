@@ -105,6 +105,24 @@ export class AwesomeMultiSelectBox extends React.Component {
       ? selectedOptions.filter(value => value !== innerText)
       : [ ...selectedOptions, innerText ]
     this.setState({ selectedOptions: newSelectedOptions })
-    this.props.cb(newSelectedOptions)
+    this.handleFiltering(newSelectedOptions)
+  }
+
+  handleFiltering = options => {
+    const { url, query } = this.props
+    options = options.length ? options : this.props.list
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        query,
+        variables: {
+          field1: options.join()
+        }
+      })
+    })
+    .then(res => this.props.onResponse(res.json()))
   }
 }

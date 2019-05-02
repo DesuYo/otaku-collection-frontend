@@ -1,6 +1,7 @@
 import React from 'react'
 import reactDOM from 'react-dom'
 
+import { AwesomeSwitcher } from './components/Switcher'
 import { AwesomeMultiSelectBox } from './components/MultiSelectBox'
 import { AwesomeSearchInput } from './components/SearchInput'
 import { AwesomeInputForm} from './components/InputForm'
@@ -14,26 +15,31 @@ const query = `
   }
 `
 
+
 reactDOM.render(
   <div>
-    <AwesomeMultiSelectBox 
+    <AwesomeSwitcher>
+      <AwesomeMultiSelectBox
       title='Choose genre'
       list={[ 'Hentai', 'Seinen', 'Echi', 'Horror' ]}
-      cb={options => console.log('Options', options)}
-    />
-    <AwesomeSearchInput 
-      cb={text => console.log('Search text', text) }
-    />
-    <AwesomeInputForm 
       url='https://polar-tundra-68721.herokuapp.com/graphql' 
       query={ query } 
       onResponse={ e => console.log(e) }
-    >
-      <input name='field1' type='email' regex='^olehdesu@gmail.com$' error-hint='Should be valid email' />
-      <button>Wont be displayed</button>
-      <input name='field2' type='password' regex='^.{8,}$' />
-      <input name='field3' type='password' regex='^.{8,}$' />
-    </AwesomeInputForm>
+      />
+      <AwesomeSearchInput 
+        cb={text => console.log('Search text', text) }
+      />
+      <AwesomeInputForm 
+        url='https://polar-tundra-68721.herokuapp.com/graphql' 
+        query={ query } 
+        onResponse={ e => console.log(e) }
+      >
+        <input name='field1' type='email' regex='^olehdesu@gmail.com$' error-hint='Should be valid email' />
+        <button>Wont be displayed</button>
+        <input name='field2' type='password' regex='^.{8,}$' />
+        <input name='field3' type='password' regex='^.{8,}$' />
+      </AwesomeInputForm>
+    </AwesomeSwitcher>
   </div>, 
   document.querySelector('#app')
 )

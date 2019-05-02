@@ -32,16 +32,18 @@ export class AwesomeSearchInput extends React.Component {
   render () {
     const { isFocused } = this.state
     return (
-      <SearchInputContainer
+      <div>
+        <SearchInputContainer
         className={ isFocused ? 'focused' : 'not-focused' }
-      >
-        <input 
-          onChange={ this.ping }
-          onFocus={ () => this.setState({ isFocused: true }) }
-          onBlur={ () => this.setState({ isFocused: false }) }
-          placeholder="Test it, bratok"
-        />
-      </SearchInputContainer>
+        >
+          <input 
+            onChange={ this.ping }
+            onFocus={ () => this.setState({ isFocused: true }) }
+            onBlur={ () => this.setState({ isFocused: false }) }
+            placeholder="Test it, bratok"
+          />
+        </SearchInputContainer>
+      </div>
     )
   }
 
