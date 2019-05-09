@@ -21,11 +21,29 @@ const StyledButton = styled.button`
   }
 `
 
+const StyledDiv = styled.div`
+  &.slide-out {
+    animation: slide-out 0.4s linear;
+    -webkit-animation: slide-out 0.4s linear;
+  }
+
+  @keyframes slide-out {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-100%); }
+  }
+
+  @-webkit-keyframes slide-out {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-100%); }
+  }
+`
+
 export class AwesomeSwitcher extends Component {
   constructor() {
     super()
     this.state = {
-      position: 0
+      position: 0,
+      isSwitched: false
     }
   }
 
@@ -34,7 +52,8 @@ export class AwesomeSwitcher extends Component {
       return {
         position: position === React.Children.count(this.props.children) - 1
           ? 0
-          : position + 1
+          : position + 1,
+        isSwitched: false
       }
     })
   }
@@ -42,8 +61,12 @@ export class AwesomeSwitcher extends Component {
   render() {
     return (
       <div>
-        { this.props.children[this.state.position] }
-        <StyledButton onClick={ this.handleSwitch }>
+        <StyledDiv 
+        className={ this.state.isSwitched ? 'slide-out' : '' }
+        onAnimationEnd={ this.handleSwitch }>
+          { this.props.children[this.state.position] }
+        </StyledDiv>
+        <StyledButton onClick={ () => this.setState({ isSwitched: true }) }>
           <span className="text-container">{ this.props.children[this.state.position].type.name }</span>
         </StyledButton>
       </div>
