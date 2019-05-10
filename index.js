@@ -22,7 +22,7 @@ reactDOM.render(
       <AwesomeMultiSelectBox
       title='Choose genre'
       list={[ 'Hentai', 'Seinen', 'Echi', 'Horror' ]}
-      url='https://polar-tundra-68721.herokuapp.com/graphql' 
+      url='https://otaku-collection-api.herokuapp.com/graphql' 
       query={ query } 
       onResponse={ e => console.log(e) }
       />
@@ -30,7 +30,7 @@ reactDOM.render(
         cb={text => console.log('Search text', text) }
       />
       <AwesomeInputForm 
-        url='https://polar-tundra-68721.herokuapp.com/graphql' 
+        url='https://otaku-collection-api.herokuapp.com/graphql' 
         query={ query } 
         onResponse={ e => console.log(e) }
       >
